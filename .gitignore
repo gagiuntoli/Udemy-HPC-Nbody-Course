@@ -1,0 +1,19 @@
+# Executables & objects
+nbody-cpu-sequential
+*.o
+
+# Outputs
+*.csv
+
+# vim
+*.swp
+
+# Latex
+*.nav
+*.out
+*.aux
+*.pdf
+*.toc
+*.snm
+*.vrb
+*.log

@@ -1,0 +1,143 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[HPC/N-Body]{Course in HPC / Optimizing N-Body problem} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Guido Giuntoli} % Your name
+\institute[Huawei] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Software Solution Architect for Advanced Computing at Huawei\\ % Your institution for the title page
+\medskip
+\textit{gagiuntoli@gmail.com} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{About me}
+\begin{itemize}
+\item Ph.D. in HPC at Barcelona Supercomputing Center: \\
+ - Develop scientific applications in C/C++ \\
+ - Accelerate code with MPI/OpenMP/OpenACC/CUDA \\
+ - Run and profile code in multi-node hybrid CPU+GPU architectures
+
+\vspace{2em}
+\item Working as Software Solution Architect at Huawei \\
+ - Evaluate and compare performance of Kunpeng ARM Processors \\
+ - Measure performance and indentify bottlenecs of applications \\
+ - Enable SVE vector instructions in applications \\
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{N-Body}
+
+Force between particle:
+$$\overline{F}_{ij} = G \frac{m_i m_j}{|r|^2} \frac{\overline{r}}{|r|}$$
+Force over one particle:
+$$\overline{F}_{i} = \sum_j \overline{F}_{ij}$$
+Acceleration:
+$$\overline{a} = \frac{\overline{F}_{i}}{m_i}$$
+Velocity
+$$\overline{v}^{n+1} = \overline{v}^n + \overline{a} \; \Delta t$$
+Position
+$$\overline{x}^{n+1} = \overline{x}^n + \overline{v}^{n+1} \; \Delta t$$
+
+\end{frame}
+
+%------------------------------------------------
+
+\end{document} 
