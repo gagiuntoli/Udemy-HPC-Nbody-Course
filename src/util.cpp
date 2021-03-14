@@ -52,7 +52,7 @@ void compareSolution(const double *x, const double *v, const int t, const int nP
 	compFile.open(ss.str());
 	if (compFile.fail()) {
 		std::cout << "error: file name " << ss.str()
-			<< "not found for comparison"
+			<< " not found for comparison"
 			<< std::endl;
 	}
 

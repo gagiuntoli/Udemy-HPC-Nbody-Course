@@ -48,6 +48,19 @@ int main(int argc, char *argv[])
 
 	const int nTimeSteps = 10;
 	const int nParticles = (argc > 1) ? atoi(argv[1]) : 100;
+
+	bool enable_compare = false;
+	bool enable_write = false;
+
+	for (int i = 0; i < argc; i++) {
+		if (std::string(argv[i]) == "-compare") {
+			enable_compare = true;
+		}
+		if (std::string(argv[i]) == "-write") {
+			enable_write = true;
+		}
+	}
+
 	const double G = 6.674e-11;
 	const double M = 5.972e24;
 	const double M2 = M * M;
@@ -102,9 +115,12 @@ int main(int argc, char *argv[])
 			x[i * 3 + 1] += v[i * 3 + 1] * Dt;
 			x[i * 3 + 2] += v[i * 3 + 2] * Dt;
 		}
-		writeSolution(x, v, t, nParticles);
-
-		compareSolution(x, v, t, nParticles);
+		if (enable_write) {
+			writeSolution(x, v, t, nParticles);
+		}
+		if (enable_compare) {
+			compareSolution(x, v, t, nParticles);
+		}
 	}
 
 	return 0;

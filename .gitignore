@@ -8,6 +8,9 @@ nbody-cpu-sequential
 # vim
 *.swp
 
+# profiling
+profiling
+
 # Latex
 *.nav
 *.out
