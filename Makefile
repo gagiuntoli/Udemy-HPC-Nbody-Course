@@ -1,15 +1,14 @@
-OBJ= src/nbody-cpu-sequential.o src/util.o
-EXE= nbody-cpu-sequential
+EXE= nbody-cpu-sequential nbody-cpu-omp
 
 FLAGS?=-O2
 
-all: nbody-cpu-sequential
+all: nbody-cpu-sequential nbody-cpu-omp
 
-nbody-cpu-sequential: $(OBJ)
-	g++ $^ -o $@
+nbody-cpu-sequential: src/nbody-cpu-sequential.cpp src/util.cpp
+	g++ $(FLAGS) $^ -o $@ -I include
 
-src/%.o: src/%.cpp
-	g++ -c $(FLAGS) $< -o $@ -I include
+nbody-cpu-omp: src/nbody-cpu-omp.cpp src/util.cpp
+	g++ $(FLAGS) $^ -o $@ -I include -fopenmp
 
 clean:
-	rm -f $(OBJ) $(EXE)
+	rm -f src/*.o $(EXE)

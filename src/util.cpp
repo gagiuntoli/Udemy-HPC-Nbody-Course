@@ -50,6 +50,8 @@ void compareSolution(const double *x, const double *v, const int t, const int nP
 	ss << "reference/" << nParticles << "/particles_" << t << ".csv";
 	std::ifstream compFile;
 	compFile.open(ss.str());
+	std::cout << std::scientific;
+
 	if (compFile.fail()) {
 		std::cout << "error: file name " << ss.str()
 			<< " not found for comparison"
@@ -60,7 +62,7 @@ void compareSolution(const double *x, const double *v, const int t, const int nP
 	std::string line;
 	while (compFile >> line) {
 		double val = std::stod(line);
-		if (std::abs(x[i] - val) > x[i] * tol) {
+		if (std::abs(x[i] - val) > std::abs(x[i] * tol)) {
 			std::cout << "error in the solution: "
 				<< x[i] << "->" << val << std::endl;
 		}

@@ -1,5 +1,6 @@
 # Executables & objects
 nbody-cpu-sequential
+nbody-cpu-omp
 *.o
 
 # Outputs

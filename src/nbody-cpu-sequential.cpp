@@ -22,19 +22,6 @@
    SOFTWARE.
  */
 
-/*
-   Force between particle:
-   \overline{F}_{ij} = G \frac{m_i m_j}{|r|^2} \frac{\overline{r}}{|r|}
-   Force over one particle:
-   F_i = sum_j F_ij
-   Acceleration:
-   a_i = F_i / m_i
-   Velocity
-   v_i = v_i + a_i Dt
-   Position
-   x_i = x_i + v_i Dt
-*/
-
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -70,13 +57,14 @@ int main(int argc, char *argv[])
 	const int Vmax = 1.0e2;
 	
 	double *x = new double[nParticles * 3];
+	double *x0 = new double[nParticles * 3];
 	double *v = new double[nParticles * 3];
 
 	/* Initialize x and v */
 	std::default_random_engine generator;
 	std::uniform_real_distribution<double> distribution(0, 1);
 	for (int i = 0; i < nParticles * 3; i++) {
-		x[i] = distribution(generator) * Xmax;
+		x0[i] = distribution(generator) * Xmax;
 		v[i] = distribution(generator) * Vmax;
 	}
 	
@@ -90,9 +78,9 @@ int main(int argc, char *argv[])
 			for (int j = 0; j < nParticles; j++) {
 				if (j != i) {
 					// F_ij = G m_i m_j / |r|^2 
-					const double dx = x[j * 3 + 0] - x[i * 3 + 0];
-					const double dy = x[j * 3 + 1] - x[i * 3 + 1];
-					const double dz = x[j * 3 + 2] - x[i * 3 + 2];
+					const double dx = x0[j * 3 + 0] - x0[i * 3 + 0];
+					const double dy = x0[j * 3 + 1] - x0[i * 3 + 1];
+					const double dz = x0[j * 3 + 2] - x0[i * 3 + 2];
 					const double r2 = dx * dx + dy * dy + dz * dz;
 					const double rinv = 1 / sqrt(r2);
 					const double rinv3 = rinv * rinv * rinv;
@@ -115,6 +103,9 @@ int main(int argc, char *argv[])
 			x[i * 3 + 1] += v[i * 3 + 1] * Dt;
 			x[i * 3 + 2] += v[i * 3 + 2] * Dt;
 		}
+		for (int i = 0; i < nParticles * 3; i++) {
+			x0[i] = x[i];
+		}
 		if (enable_write) {
 			writeSolution(x, v, t, nParticles);
 		}
@@ -123,5 +114,8 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	delete [] x;
+	delete [] x0;
+	delete [] v;
 	return 0;
 }
