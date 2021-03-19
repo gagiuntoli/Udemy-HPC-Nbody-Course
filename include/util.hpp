@@ -25,4 +25,6 @@
 #pragma once
 
 void writeSolution(const double *x, const double *v, const int t, const int nParticles);
-void compareSolution(const double *x, const double *v, const int t, const int nParticles);
+void compareSolution(const double *x, const double *v, const int t,
+		const int nParticles,
+		bool printComparison = false);

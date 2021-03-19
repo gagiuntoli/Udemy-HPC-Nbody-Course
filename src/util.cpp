@@ -43,9 +43,11 @@ void writeSolution(const double *x, const double *v, const int t, const int nPar
 	outFile.close();
 }
 
-void compareSolution(const double *x, const double *v, const int t, const int nParticles)
+void compareSolution(const double *x, const double *v, const int t,
+		const int nParticles,
+		bool printComparison = false)
 {
-	const double tol = 1.0e-3;
+	const double tol = 1.0e-5;
 	std::stringstream ss;
 	ss << "reference/" << nParticles << "/particles_" << t << ".csv";
 	std::ifstream compFile;
@@ -60,12 +62,20 @@ void compareSolution(const double *x, const double *v, const int t, const int nP
 
 	int i = 0;
 	std::string line;
+
 	while (compFile >> line) {
+
 		double val = std::stod(line);
+
+		if (printComparison) {
+			std::cout << "comparing : " << x[i] << " " << val << std::endl;
+		}
+
 		if (std::abs(x[i] - val) > std::abs(x[i] * tol)) {
 			std::cout << "error in the solution: "
 				<< x[i] << "->" << val << std::endl;
 		}
+
 		if(compFile >> line) {
 			double val = std::stod(line);
 			if (std::abs(v[i] - val) > std::abs(v[i] * tol)) {
